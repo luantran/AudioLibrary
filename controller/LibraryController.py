@@ -9,6 +9,17 @@ import os, sys
 class LibraryController(object):
 
     ### ARTIST ###
+    def initArtist(self, folderpath):
+        print("initializing artist: " + folderpath)
+        folder_object = folder.Folder(folderpath)
+        artist_name = folder_object.foldername
+        newArtist = artist.Artist(artist_name, folder_object)
+
+        lib = library.Library()
+        lib.artists.append(newArtist)
+
+        #TODO: SQL QUERY
+
 
     def editArtist(self, name):
         if name == "" or name is None:
@@ -20,12 +31,28 @@ class LibraryController(object):
         folder_object = folder.Folder(folderpath)
 
         newArtist = artist.Artist(name, folder_object)
-        lib = library.Library
-        lib.artists.add(newArtist)
+        lib = library.Library()
+        lib.artists.append(newArtist)
 
         #TODO: SQL QUERY
 
     ### ALBUM ###
+
+    def initAlbum(self, album_folderpath, artist_folderpath):
+        folder_object = folder.Folder(album_folderpath)
+        album_name = folder_object.foldername
+        lib = library.Library()
+        album_artist = None
+        for artist_element in lib.artists:
+            if artist_folderpath == artist_element.folder.folderpath:
+                album_artist = artist_element
+                break
+        newAlbum = album.Album(album_name, None, album_artist, 0, folder_object)
+        album_artist.listOfArtistsAlbums.append(newAlbum)
+
+        # lib = library.Library
+        lib.albums.append(newAlbum)
+
 
     def editAlbum(self, name, release_date, artist_object, num_tracks):
         error = ""
@@ -46,8 +73,8 @@ class LibraryController(object):
         folder_object = folder.Folder(folderpath)
 
         newAlbum = album.Album(name, release_date, artist_object, num_tracks, folder_object)
-        lib = library.Library
-        lib.albums.add(newAlbum)
+        lib = library.Library()
+        lib.albums.append(newAlbum)
 
         #TODO : SQL QUERY
 
