@@ -78,6 +78,42 @@ class LibraryController(object):
 
         #TODO : SQL QUERY
 
+### SONG ###
+    def initSong(self, album_folderpath, artist_folderpath, filepath):
+        file_object = file.File(filepath)
+        albumname_folder = album_folderpath.rsplit('/', 1)[1]
+        if albumname_folder != file_object.getAlbumName():
+            raise ValueError("Album name in file path does not match album folder name!")
+
+        artistname_folder = artist_folderpath.rsplit('/', 1)[1]
+        if artistname_folder != file_object.getArtistName():
+            raise ValueError("Artist name in file path does not match artist folder name!")
+
+        lib = library.Library()
+        album_artist = None
+        for artist_element in lib.artists:
+            if artist_folderpath == artist_element.folder.folderpath:
+                album_artist = artist_element
+                break
+        songs_album = None
+        for album_element in lib.albums:
+
+            if album_folderpath == album_element.folder.folderpath:
+                songs_album = album_element
+                break
+
+        if album_artist is None:
+            raise ValueError("Could not find album_artist")
+        if songs_album is None:
+            raise ValueError("Could not find songs_album")
+
+        newSong = song.Song(file_object.getSongTitle(), file_object.getDuration(), file_object.getTrackNum(), songs_album, file_object.getYear(), file_object)
+        songs_album.listOfAlbumSongs.append(newSong)
+        if int(songs_album.num_tracks) < int(file_object.getTracks()):
+            songs_album.num_tracks = file_object.getTracks()
+        lib.songs.append(newSong)
+
+
     def editSong(self, name, duration, track_num, album_object, year):
         return None
 
