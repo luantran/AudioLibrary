@@ -13,7 +13,7 @@ class Album:
 
     def __del__(self):
         album_name = self.__class__.__name__
-        print(album_name + " " + self.name + " destroyed")
+        # print(album_name + " " + self.name + " destroyed")
 
     def delete(self):
         for i in range(len(self.listOfAlbumSongs), 0, -1):

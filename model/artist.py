@@ -10,7 +10,7 @@ class Artist(object):
 
     def __del__(self):
         artist_name = self.__class__.__name__
-        print(artist_name + " " + self.name + " destroyed")
+        # print(artist_name + " " + self.name + " destroyed")
 
     def delete(self):
         for i in range(len(self.listOfArtistsAlbums), 0, -1):

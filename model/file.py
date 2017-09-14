@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from tinytag import TinyTag
+import os, shutil
 
 class File:
     nextId = 1
@@ -11,7 +12,19 @@ class File:
 
     def __del__(self):
         filename = self.__class__.__name__
-        print(filename + " " + self.filename + " destroyed")
+        # print(filename + " " + self.filename + " destroyed")
+
+    def moveFile(self, new_filepath):
+        filetype = self.filepath.rsplit('.', 1)[1]
+        new_filepath += '.'
+        new_filepath += filetype
+        if os.path.exists(new_filepath):
+            raise Exception("There already exists a file with that name")
+        else:
+            shutil.copy(self.filepath, new_filepath)
+            self.filepath = new_filepath
+            self.filename = self.filepath.rsplit('/', 1)[1]
+
 
 
 ###############################

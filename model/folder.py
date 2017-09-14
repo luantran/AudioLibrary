@@ -7,4 +7,4 @@ class Folder(object):
 
     def __del__(self):
         folderpath = self.__class__.__name__
-        print(folderpath + " " + self.folderpath + " destroyed")
+        # print(folderpath + " " + self.folderpath + " destroyed")

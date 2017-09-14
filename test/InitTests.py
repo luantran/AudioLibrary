@@ -58,10 +58,7 @@ class InitTests(unittest.TestCase):
         self.assertEqual(40, len(lib.albums[0].listOfAlbumSongs))
         self.assertEqual("Various Artists", lib.songs[0].album.artist.name)
         self.assertEqual(40, lib.albums[0].num_tracks)
-        
-
-
 
 
 if __name__ == '__main__':
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(InitTests)

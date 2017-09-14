@@ -13,4 +13,4 @@ class Song:
 
     def __del__(self):
         song_name = self.__class__.__name__
-        print(song_name + " " + self.name + " destroyed")
+        # print(song_name + " " + self.name + " destroyed")
